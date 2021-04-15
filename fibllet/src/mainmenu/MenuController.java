@@ -1,4 +1,4 @@
-package fibllet;
+package mainmenu;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -58,7 +58,7 @@ public class MenuController {
 	public void reviewBtnClick() throws Exception {
 		System.out.println("clicked review btn");
 
-		Parent root = FXMLLoader.load((getClass().getResource("reviewSets.fxml")));
+		Parent root = FXMLLoader.load((getClass().getResource("/reviewmenu/reviewSets.fxml")));
 		root.setStyle("-fx-background-color:transparent;");
 		Scene scene = new Scene(root, Color.rgb(0, 0, 0, 0.5));
 		scene.getStylesheets().add(getClass().getResource("mainMenuStylesheet.css").toExternalForm());

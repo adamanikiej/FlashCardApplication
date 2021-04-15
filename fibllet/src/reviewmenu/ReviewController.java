@@ -1,4 +1,4 @@
-package fibllet;
+package reviewmenu;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,9 +43,9 @@ public class ReviewController {
 	private void menuBtnClick() throws Exception {
 		System.out.println("clicked main menu btn");
 
-		Parent root = FXMLLoader.load((getClass().getResource("menu.fxml")));
+		Parent root = FXMLLoader.load((getClass().getResource("/mainmenu/menu.fxml")));
 		Scene scene = new Scene(root, Color.rgb(0, 0, 0, 0.5));
-		scene.getStylesheets().add(getClass().getResource("mainMenuStylesheet.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/mainmenu/mainMenuStylesheet.css").toExternalForm());
 		root.setStyle("-fx-background-color:transparent;");
 
 		Stage window = (Stage) application.getScene().getWindow();

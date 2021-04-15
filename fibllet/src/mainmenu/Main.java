@@ -1,4 +1,4 @@
-package fibllet;
+package mainmenu;
 
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
