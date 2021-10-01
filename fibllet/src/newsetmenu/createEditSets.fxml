@@ -37,7 +37,7 @@
       </AnchorPane>
       <AnchorPane layoutY="30.0" prefHeight="570.0" prefWidth="1000.0">
          <children>
-            <TableView fx:id="tableView" layoutY="6.0" prefHeight="570.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TableView fx:id="tableView" layoutY="6.0" onMouseClicked="#tableClick" prefHeight="570.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
                 <TableColumn fx:id="setNameColumn" prefWidth="394.0" text="Set Name" />
                 <TableColumn fx:id="cardCountColumn" prefWidth="112.0" text="Card Count" />
