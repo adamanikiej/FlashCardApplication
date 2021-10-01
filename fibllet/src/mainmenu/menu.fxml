@@ -118,7 +118,7 @@
             </AnchorPane>
             <AnchorPane id="pane" layoutX="586.0" layoutY="151.0" prefHeight="118.5" prefWidth="398.0">
                <children>
-                  <Label alignment="CENTER" layoutY="3.0" onMouseClicked="#createSetBtnClick" prefHeight="118.5" prefWidth="398.0" text="Create a New Set" textAlignment="CENTER" textFill="#0166cc">
+                  <Label alignment="CENTER" layoutY="3.0" onMouseClicked="#createSetBtnClick" prefHeight="118.5" prefWidth="398.0" text="Create/Edit a Set" textAlignment="CENTER" textFill="#0166cc">
                      <font>
                         <Font size="31.0" />
                      </font>

@@ -42,8 +42,6 @@ public class Main extends Application {
 		initializeMenu(stage);
 
 		
-		
-		
 		// normal();
 //		StackPane node = new StackPane(new Label("TRANSPARENT"));
 //		node.setPadding(new Insets(15));
@@ -81,10 +79,7 @@ public class Main extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
 
-	
-	
 	//useless code -> first attempt at transparent background below
 	public void normal() {
 		StackPane body = new StackPane();

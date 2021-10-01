@@ -61,10 +61,11 @@ public class MenuController {
 		Parent root = FXMLLoader.load((getClass().getResource("/reviewmenu/reviewSets.fxml")));
 		root.setStyle("-fx-background-color:transparent;");
 		Scene scene = new Scene(root, Color.rgb(0, 0, 0, 0.5));
-		scene.getStylesheets().add(getClass().getResource("mainMenuStylesheet.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/reviewmenu/reviewSetsStylesheet.css").toExternalForm());
 		
 		Stage window = (Stage) application.getScene().getWindow();
 		window.setScene(scene);
+		
 	}
 	
 	@FXML
@@ -73,8 +74,16 @@ public class MenuController {
 	}
 	
 	@FXML
-	private void createSetBtnClick() {
+	private void createSetBtnClick() throws Exception {
 		System.out.println("clicked create set btn");
+		
+		Parent root = FXMLLoader.load((getClass().getResource("/newsetmenu/createEditSets.fxml")));
+		root.setStyle("-fx-background-color:transparent;");
+		Scene scene = new Scene(root, Color.rgb(0, 0, 0, 0.5));
+		scene.getStylesheets().add(getClass().getResource("/newsetmenu/createEditSetsStylesheet.css").toExternalForm());
+		
+		Stage window = (Stage) application.getScene().getWindow();
+		window.setScene(scene);
 	}
 	
 	@FXML

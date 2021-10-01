@@ -1,9 +1,3 @@
-#pane2 {
-	-fx-background-color: #ffffff;
-	-fx-background-radius: 15.0px;
-	-fx-border-radius: 15.0px;
-}
-
 #background {
 	-fx-background-image: url("/assets/backgroundImage.jpeg");
 	-fx-opacity: .50;
@@ -18,4 +12,9 @@
 #pane:hover {
 	-fx-background-color: #cccccc;
 
+}
+
+
+#flashcard {
+	-fx-background-color: #ffffff;
 }
