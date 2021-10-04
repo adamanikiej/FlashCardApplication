@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import editset.EditSetController;
+import flashcard.Flashcard;
 import flashcard.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -131,6 +132,7 @@ public class NewSetController implements Initializable {
 			
 			EditSetController controller = loader.getController();
 			controller.initData(rowItem);
+			controller.loadFlashcards();
 			
 			stage.show();
 		} catch (IOException e) {
@@ -167,12 +169,21 @@ public class NewSetController implements Initializable {
 	public ObservableList<Set> getSets() {
 		ObservableList<Set> sets = FXCollections.observableArrayList();
 
+		//create fake related quizzes for sets
 		ArrayList<String> related1 = new ArrayList<String>();
 		related1.add("Anatomy");
 		related1.add("Quiz 1");
+		
+		//create fake flashcard for sets
+		ArrayList<Flashcard> cards1 = new ArrayList<Flashcard>();
+		cards1.add(new Flashcard("?", "!"));
+		cards1.add(new Flashcard("test question", "test answer"));
+		ArrayList<Flashcard> cards2 = new ArrayList<Flashcard>();
+		cards2.add(new Flashcard("another test question", "another test answer"));
+		cards2.add(new Flashcard("gang", "gang gang"));
 
-		sets.add(new Set("Arm Anatomy", 13, LocalDate.of(2021, Month.SEPTEMBER, 21), related1));
-		sets.add(new Set("Leg Anatomy", 21, LocalDate.of(2020, Month.DECEMBER, 4), related1));
+		sets.add(new Set("Arm Anatomy", 13, LocalDate.of(2021, Month.SEPTEMBER, 21), related1, cards1));
+		sets.add(new Set("Leg Anatomy", 21, LocalDate.of(2020, Month.DECEMBER, 4), related1, cards2));
 
 		return sets;
 	}

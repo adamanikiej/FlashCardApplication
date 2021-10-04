@@ -5,12 +5,15 @@ import java.util.ArrayList;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Set {
 	private SimpleStringProperty name;
 	private SimpleIntegerProperty cardCount;
 	private LocalDate creationDate;
 	private ArrayList<String> relatedQuizzes;
+	private ArrayList<Flashcard> cards;
 
 	/**
 	 * Constructor Used for displaying Sets in tableview
@@ -27,7 +30,27 @@ public class Set {
 		// figure out how to pass in a string and store in arraylist of
 		// simplestringproperties
 		this.relatedQuizzes = relatedQuizzes;
+		this.cards = new ArrayList<Flashcard>();
 	}
+	
+	/**
+	 * Constructor Used for displaying Sets in tableview that contains flashcards
+	 * 
+	 * @param name
+	 * @param count
+	 * @param date
+	 * @param relatedQuizzes
+	 */
+	public Set(String name, int count, LocalDate date, ArrayList<String> relatedQuizzes, ArrayList<Flashcard> cards) {
+		this.name = new SimpleStringProperty(name);
+		this.cardCount = new SimpleIntegerProperty(count);
+		this.creationDate = date;
+		// figure out how to pass in a string and store in arraylist of
+		// simplestringproperties
+		this.relatedQuizzes = relatedQuizzes;
+		this.cards = cards;
+	}
+	
 
 	/**
 	 * Getter for tableview
@@ -74,6 +97,14 @@ public class Set {
 			full += relatedQuizzes.get(relatedQuizzes.size() - 1);
 		}
 		return full;
+	}
+	
+	/**
+	 * Getter for Flashcards in a set
+	 * @return observable list of flashcards used for tableview in editSet menu
+	 */
+	public ObservableList<Flashcard> getFlashcards() {
+		return FXCollections.observableArrayList(cards);
 	}
 
 	@Override

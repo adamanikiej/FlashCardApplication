@@ -41,10 +41,10 @@
       </AnchorPane>
       <AnchorPane layoutY="30.0" prefHeight="430.0" prefWidth="483.0">
          <children>
-            <TableView layoutX="14.0" layoutY="37.0" prefHeight="384.0" prefWidth="442.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="37.0">
+            <TableView fx:id="tableView" layoutX="14.0" layoutY="37.0" prefHeight="384.0" prefWidth="442.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="37.0">
               <columns>
-                <TableColumn prefWidth="221.0" text="Question" />
-                <TableColumn prefWidth="220.0" text="Answer" />
+                <TableColumn fx:id="question" prefWidth="221.0" text="Question" />
+                <TableColumn fx:id="answer" prefWidth="220.0" text="Answer" />
               </columns>
             </TableView>
             <Label layoutX="46.0" layoutY="5.0" prefHeight="26.0" prefWidth="76.0" text="Name:">
