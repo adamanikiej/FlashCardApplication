@@ -1,5 +1,6 @@
 package newsetmenu;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Month;
@@ -28,9 +29,10 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class NewSetController implements Initializable {
-	//TODO
-	//make it so when you double click, it goes to edit set menu
-	//make it when you right click it brings up mini menu of edit set, rename set, delete set, create quiz set
+	// TODO
+	// make it so when you double click, it goes to edit set menu
+	// make it when you right click it brings up mini menu of edit set, rename set,
+	// delete set, create quiz set
 
 	@FXML
 	AnchorPane application;
@@ -38,8 +40,8 @@ public class NewSetController implements Initializable {
 	@FXML
 	private Button exitBtn;
 
-	@FXML
-	Button menuBtn;
+	//@FXML
+	//Button menuBtn;
 
 	// setting up set table
 	@FXML
@@ -75,10 +77,19 @@ public class NewSetController implements Initializable {
 
 	}
 
+	/**
+	 * Handles mouse clicks on the rows of the tableview Dehighlights selected set
+	 * if empty row is clicked on 
+	 * TODO: add right click menu that allows to edit set
+	 * instead of having to double click row
+	 * 
+	 * @param event
+	 * @throws Exception 
+	 */
 	private void handleRowMouseClick(MouseEvent event) {
 		@SuppressWarnings("unchecked")
 		TableRow<Set> row = (TableRow<Set>) event.getSource();
-		//System.out.println("mouse clicked:" + row.isEmpty());
+		// System.out.println("mouse clicked:" + row.isEmpty());
 
 		if (event.getButton() == MouseButton.PRIMARY) {
 			if (row.isEmpty()) {
@@ -87,37 +98,34 @@ public class NewSetController implements Initializable {
 			} else if (event.getClickCount() == 2 && row.getItem() != null) {
 				System.out.println("double clicked set");
 				System.out.println(row.getItem());
+				
+				//go to edit set scene
+				goToEditsetScene();
+				
+				//consume the event
 				event.consume();
 			}
 		}
-		// use row.isEmpty() to determine if clicking on row or not
-		/*
-		 * Logic: if event is primary and is double click -> if row is not empty and row
-		 * item is not empty go to set editor deselect row else deselect row? else if
-		 * event is primary and is single click and row is empty and row item is empty
-		 * if
-		 */
-
-		/*
-		 * if (event.getButton() == MouseButton.PRIMARY && (event.getClickCount() == 1)
-		 * || event.getClickCount() == 2) { if (row != null) {
-		 * row.getTableView().getSelectionModel().clearSelection(); } }
-		 */
-
-		// if double clicked on a set
-		/*
-		if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-			if (!row.isEmpty() && row.getItem() != null) {
-				// editSet() -> loads set in edit scene mode
-				System.out.println("double clicked set");
-				System.out.println(row.getItem());
-				event.consume();
-			} else if (event.getClickCount() == 1) {
-				row.getTableView().getSelectionModel().clearSelection();
-			}
+	}
+	
+	/**
+	 * Method to handle going to the edit set scene
+	 * @throws Exception
+	 */
+	private void goToEditsetScene() {
+		Parent root;
+		try {
+			root = FXMLLoader.load((getClass().getResource("/editset/editSet.fxml")));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
-		*/
-		// row.getTableView().getSelectionModel().clearSelection();
+
+		//root.setStyle("-fx-background-color:transparent;");
+		Scene scene = new Scene(root);
+		//scene.getStylesheets().add(getClass().getResource("/editset/editSet.css").toExternalForm());
+		
+		Stage window = (Stage) application.getScene().getWindow();
+		window.setScene(scene);
 	}
 
 	/**
@@ -138,7 +146,6 @@ public class NewSetController implements Initializable {
 
 		return sets;
 	}
-
 
 	@FXML
 	private void exitBtnClick() {
