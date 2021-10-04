@@ -7,6 +7,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import editset.EditSetController;
 import flashcard.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -25,7 +27,9 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 public class NewSetController implements Initializable {
@@ -100,7 +104,7 @@ public class NewSetController implements Initializable {
 				System.out.println(row.getItem());
 				
 				//go to edit set scene
-				goToEditsetScene();
+				goToEditsetScene(row.getItem(), (Stage) ((Node)event.getSource()).getScene().getWindow());
 				
 				//consume the event
 				event.consume();
@@ -112,20 +116,46 @@ public class NewSetController implements Initializable {
 	 * Method to handle going to the edit set scene
 	 * @throws Exception
 	 */
-	private void goToEditsetScene() {
+	private void goToEditsetScene(Set rowItem, Stage st) {
+		try {
+			//load editSet with the row that was clicked on
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/editset/editSet.fxml"));			
+			Scene scene = new Scene(loader.load());
+			Stage stage = new Stage(StageStyle.UNDECORATED);
+			stage.setScene(scene);
+			
+			//make only edit set window be accessible
+			stage.initOwner(st);
+			stage.initModality(Modality.WINDOW_MODAL);
+			
+			EditSetController controller = loader.getController();
+			controller.initData(rowItem);
+			
+			stage.show();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		
+		
+		
+		
+		/*
 		Parent root;
 		try {
 			root = FXMLLoader.load((getClass().getResource("/editset/editSet.fxml")));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-
+	
+		
 		//root.setStyle("-fx-background-color:transparent;");
 		Scene scene = new Scene(root);
 		//scene.getStylesheets().add(getClass().getResource("/editset/editSet.css").toExternalForm());
 		
 		Stage window = (Stage) application.getScene().getWindow();
 		window.setScene(scene);
+		*/
 	}
 
 	/**

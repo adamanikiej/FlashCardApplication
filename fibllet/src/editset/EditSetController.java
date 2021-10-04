@@ -1,10 +1,13 @@
 package editset;
 
+import flashcard.Set;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -19,14 +22,19 @@ public class EditSetController {
 
 	@FXML
 	private Button exitBtn;
-
-	@FXML
-	Button menuBtn;
 	
+	@FXML
+	private TextField name; 
+	
+	
+	public void initData(Set set) {
+		name.setText(set.getSetName());
+	}
 	
 	
 	@FXML
 	private void exitBtnClick() {
+		//TODO add another modal for if they want to save changes or not
 		Stage stg = (Stage) exitBtn.getScene().getWindow();
 		stg.close();
 	}
@@ -42,9 +50,14 @@ public class EditSetController {
 	}
 
 	@FXML
-	private void saveBtnClick() throws Exception {
-		System.out.println("clicked main menu btn");
-
+	private void saveBtnClick(MouseEvent event) throws Exception {
+		System.out.println("clicked save btn");
+		//TODO add saving changes
+		Node source = (Node) event.getSource();
+		Stage stg = (Stage) source.getScene().getWindow();
+		stg.close();
+		
+		/*
 		Parent root = FXMLLoader.load((getClass().getResource("/mainmenu/menu.fxml")));
 		Scene scene = new Scene(root, Color.rgb(0, 0, 0, 0.5));
 		scene.getStylesheets().add(getClass().getResource("/mainmenu/mainMenuStylesheet.css").toExternalForm());
@@ -52,6 +65,7 @@ public class EditSetController {
 
 		Stage window = (Stage) application.getScene().getWindow();
 		window.setScene(scene);
+		*/
 	}
 
 	// LOGIC FOR BEING ABLE TO DRAG THE APPLICATION
