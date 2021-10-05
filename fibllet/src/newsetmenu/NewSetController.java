@@ -45,8 +45,8 @@ public class NewSetController implements Initializable {
 	@FXML
 	private Button exitBtn;
 
-	//@FXML
-	//Button menuBtn;
+	// @FXML
+	// Button menuBtn;
 
 	// setting up set table
 	@FXML
@@ -84,12 +84,11 @@ public class NewSetController implements Initializable {
 
 	/**
 	 * Handles mouse clicks on the rows of the tableview Dehighlights selected set
-	 * if empty row is clicked on 
-	 * TODO: add right click menu that allows to edit set
+	 * if empty row is clicked on TODO: add right click menu that allows to edit set
 	 * instead of having to double click row
 	 * 
 	 * @param event
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	private void handleRowMouseClick(MouseEvent event) {
 		@SuppressWarnings("unchecked")
@@ -103,61 +102,66 @@ public class NewSetController implements Initializable {
 			} else if (event.getClickCount() == 2 && row.getItem() != null) {
 				System.out.println("double clicked set");
 				System.out.println(row.getItem());
-				
-				//go to edit set scene
-				goToEditsetScene(row.getItem(), (Stage) ((Node)event.getSource()).getScene().getWindow());
-				
-				//consume the event
+
+				// go to edit set scene
+				goToEditsetScene(row.getItem(), (Stage) ((Node) event.getSource()).getScene().getWindow());
+
+				// consume the event
 				event.consume();
 			}
 		}
 	}
-	
+
 	/**
-	 * Method to handle going to the edit set scene
+	 * Method to handle going to the edit set scene for existing set
+	 * 
 	 * @throws Exception
 	 */
 	private void goToEditsetScene(Set rowItem, Stage st) {
 		try {
-			//load editSet with the row that was clicked on
+			// load editSet with the row that was clicked on
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/editset/editSet.fxml"));			
+			loader.setLocation(getClass().getResource("/editset/editSet.fxml"));
 			Scene scene = new Scene(loader.load());
 			Stage stage = new Stage(StageStyle.UNDECORATED);
 			stage.setScene(scene);
-			
-			//make only edit set window be accessible
+
+			// make only edit set window be accessible
 			stage.initOwner(st);
 			stage.initModality(Modality.WINDOW_MODAL);
-			
+
 			EditSetController controller = loader.getController();
 			controller.initData(rowItem);
 			controller.loadFlashcards();
-			
+
 			stage.show();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		
-		
-		
-		
-		/*
-		Parent root;
+	}
+
+	/**
+	 * Method to handle going to the edit set scene for new set
+	 * 
+	 * @throws Exception
+	 */
+	private void goToEditsetScene(Stage st) {
 		try {
-			root = FXMLLoader.load((getClass().getResource("/editset/editSet.fxml")));
+			// load editSet
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/editset/editSet.fxml"));
+			Scene scene = new Scene(loader.load());
+			Stage stage = new Stage(StageStyle.UNDECORATED);
+			stage.setScene(scene);
+
+			// make only edit set window be accessible
+			stage.initOwner(st);
+			stage.initModality(Modality.WINDOW_MODAL);
+
+			stage.show();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-	
-		
-		//root.setStyle("-fx-background-color:transparent;");
-		Scene scene = new Scene(root);
-		//scene.getStylesheets().add(getClass().getResource("/editset/editSet.css").toExternalForm());
-		
-		Stage window = (Stage) application.getScene().getWindow();
-		window.setScene(scene);
-		*/
 	}
 
 	/**
@@ -169,12 +173,12 @@ public class NewSetController implements Initializable {
 	public ObservableList<Set> getSets() {
 		ObservableList<Set> sets = FXCollections.observableArrayList();
 
-		//create fake related quizzes for sets
+		// create fake related quizzes for sets
 		ArrayList<String> related1 = new ArrayList<String>();
 		related1.add("Anatomy");
 		related1.add("Quiz 1");
-		
-		//create fake flashcard for sets
+
+		// create fake flashcard for sets
 		ArrayList<Flashcard> cards1 = new ArrayList<Flashcard>();
 		cards1.add(new Flashcard("?", "!"));
 		cards1.add(new Flashcard("test question", "test answer"));
@@ -182,8 +186,8 @@ public class NewSetController implements Initializable {
 		cards2.add(new Flashcard("another test question", "another test answer"));
 		cards2.add(new Flashcard("gang", "gang gang"));
 
-		sets.add(new Set("Arm Anatomy", 13, LocalDate.of(2021, Month.SEPTEMBER, 21), related1, cards1));
-		sets.add(new Set("Leg Anatomy", 21, LocalDate.of(2020, Month.DECEMBER, 4), related1, cards2));
+		sets.add(new Set("Arm Anatomy", LocalDate.of(2021, Month.SEPTEMBER, 21), related1, cards1));
+		sets.add(new Set("Leg Anatomy", LocalDate.of(2020, Month.DECEMBER, 4), related1, cards2));
 
 		return sets;
 	}
@@ -202,6 +206,13 @@ public class NewSetController implements Initializable {
 	@FXML
 	private void fullscreenBtnClick() {
 
+	}
+
+	@FXML
+	private void createSetBtnClick(MouseEvent e) {
+		System.out.println("clicked create a new set");
+		
+		goToEditsetScene((Stage) ((Node) e.getSource()).getScene().getWindow());
 	}
 
 	@FXML

@@ -47,18 +47,19 @@
                 <TableColumn fx:id="answer" prefWidth="220.0" text="Answer" />
               </columns>
             </TableView>
-            <Label layoutX="46.0" layoutY="5.0" prefHeight="26.0" prefWidth="76.0" text="Name:">
+            <Label layoutX="14.0" layoutY="5.0" prefHeight="26.0" prefWidth="76.0" text="Name:">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
             <ScrollBar layoutX="456.0" layoutY="37.0" orientation="VERTICAL" prefHeight="384.0" prefWidth="15.0" />
-            <ImageView fitHeight="30.0" fitWidth="29.0" layoutX="415.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="29.0" layoutX="443.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/editPencil.png" />
                </image>
             </ImageView>
-            <TextField fx:id="name" layoutX="122.0" layoutY="7.0" prefHeight="26.0" prefWidth="279.0" />
+            <TextField fx:id="name" layoutX="78.0" layoutY="7.0" prefHeight="26.0" prefWidth="279.0" />
+            <Button layoutX="365.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#addCardBtnClick" prefHeight="26.0" prefWidth="76.0" text="Add Card" />
          </children>
       </AnchorPane>
    </children>

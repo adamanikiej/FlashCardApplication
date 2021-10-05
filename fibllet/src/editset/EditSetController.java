@@ -4,11 +4,13 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import flashcard.Flashcard;
 import flashcard.Set;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +18,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -38,10 +44,22 @@ public class EditSetController implements Initializable {
 	@FXML
 	private Button exitBtn;
 	
+	/**
+	 * stores the name of the set
+	 */
 	@FXML
 	private TextField name; 
 	
+	/**
+	 * stores the set which was clicked in previous menu
+	 */
 	private Set clickedSet;
+	
+	/**
+	 * local list of the set's flashcards, does not mutate actual set
+	 * used for displaying flashcards in tableview
+	 */
+	ObservableList<Flashcard> cards = FXCollections.observableArrayList();
 	
 	
 	// setting up set table
@@ -60,20 +78,21 @@ public class EditSetController implements Initializable {
 	}
 	
 	/**
+	 * runs after initialize to pass parameters between windows
+	 * @param set
+	 */
+	public void initData(Set set) {
+		name.setText(set.getSetName());
+		this.clickedSet = set;
+	}
+	
+	/**
 	 * Function ran after initData so flashcards are loaded into Tableview
 	 */
 	public void loadFlashcards() {
 		// populate set with data for testing
-		tableView.setItems(clickedSet.getFlashcards());
-
-		// set up event handler for tableview rows
-		EventHandler<MouseEvent> onClick = this::handleRowMouseClick;
-		tableView.setRowFactory(param -> {
-			TableRow<Flashcard> row = new TableRow<>();
-			row.setOnMouseClicked(onClick);
-			return row;
-
-		});
+		cards.addAll(clickedSet.getFlashcards());
+		tableView.setItems(cards);
 	}
 	
 	/**
@@ -105,16 +124,37 @@ public class EditSetController implements Initializable {
 		}
 	}
 	
-	
-	
-	public void initData(Set set) {
-		name.setText(set.getSetName());
-		this.clickedSet = set;
+	/**
+	 * Button used to add an additional card to a set in the tableview
+	 */
+	@FXML
+	private void addCardBtnClick() {
+		System.out.println("clicked add card btn");
+		cards.add(new Flashcard("", ""));
 	}
 	
 	@FXML
 	private void exitBtnClick() {
-		//TODO add another modal for if they want to save changes or not
+		//TODO make it so alert is only displayed if changes are made
+		
+		//display alert if they want to exit without saving
+		ButtonType save = new ButtonType("Save", ButtonBar.ButtonData.YES);
+		ButtonType no = new ButtonType("Don't Save", ButtonBar.ButtonData.NO);
+		ButtonType back = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+		Alert a = new Alert(AlertType.CONFIRMATION, "Want to save your changes to the set?", save, no, back);
+		a.setTitle("Exit without Saving?");
+		a.setHeaderText(null);
+		//wait till alert is answered
+		Optional<ButtonType> result = a.showAndWait();
+
+		//based on answer, either exit or go back
+		if (result.get().getButtonData() == ButtonType.YES.getButtonData()) { //save
+			saveSet();
+		} else if (result.get().getButtonData() == ButtonType.CANCEL.getButtonData()) { //go back to set editor
+			a.close();
+			return;
+		}
+		//save and don't save run this code below
 		Stage stg = (Stage) exitBtn.getScene().getWindow();
 		stg.close();
 	}
@@ -132,21 +172,28 @@ public class EditSetController implements Initializable {
 	@FXML
 	private void saveBtnClick(MouseEvent event) throws Exception {
 		System.out.println("clicked save btn");
-		//TODO add saving changes
+		//save changes made to set
+		saveSet();
+		
+		
+		//exiting set editor window
 		Node source = (Node) event.getSource();
 		Stage stg = (Stage) source.getScene().getWindow();
 		stg.close();
-		
-		/*
-		Parent root = FXMLLoader.load((getClass().getResource("/mainmenu/menu.fxml")));
-		Scene scene = new Scene(root, Color.rgb(0, 0, 0, 0.5));
-		scene.getStylesheets().add(getClass().getResource("/mainmenu/mainMenuStylesheet.css").toExternalForm());
-		root.setStyle("-fx-background-color:transparent;");
-
-		Stage window = (Stage) application.getScene().getWindow();
-		window.setScene(scene);
-		*/
 	}
+	
+	/**
+	 * Function used to save the changes made during Set Editor
+	 */
+	private void saveSet() {
+		//saving changes
+		clickedSet.setSetName(name.getText());
+		clickedSet.setCardCount(cards.size());
+		ArrayList<Flashcard> temp = new ArrayList<Flashcard>();
+		temp.addAll(cards);
+		clickedSet.setFlashcards(temp);
+	}
+	
 
 	// LOGIC FOR BEING ABLE TO DRAG THE APPLICATION
 	private double startMoveX = 0, startMoveY = 0;

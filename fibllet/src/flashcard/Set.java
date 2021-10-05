@@ -23,14 +23,15 @@ public class Set {
 	 * @param date
 	 * @param relatedQuizzes
 	 */
-	public Set(String name, int count, LocalDate date, ArrayList<String> relatedQuizzes) {
+	public Set(String name, LocalDate date, ArrayList<String> relatedQuizzes) {
 		this.name = new SimpleStringProperty(name);
-		this.cardCount = new SimpleIntegerProperty(count);
+
 		this.creationDate = date;
 		// figure out how to pass in a string and store in arraylist of
 		// simplestringproperties
 		this.relatedQuizzes = relatedQuizzes;
 		this.cards = new ArrayList<Flashcard>();
+		this.cardCount = new SimpleIntegerProperty(cards.size());
 	}
 	
 	/**
@@ -41,14 +42,15 @@ public class Set {
 	 * @param date
 	 * @param relatedQuizzes
 	 */
-	public Set(String name, int count, LocalDate date, ArrayList<String> relatedQuizzes, ArrayList<Flashcard> cards) {
+	public Set(String name, LocalDate date, ArrayList<String> relatedQuizzes, ArrayList<Flashcard> cards) {
 		this.name = new SimpleStringProperty(name);
-		this.cardCount = new SimpleIntegerProperty(count);
+		
 		this.creationDate = date;
 		// figure out how to pass in a string and store in arraylist of
 		// simplestringproperties
 		this.relatedQuizzes = relatedQuizzes;
 		this.cards = cards;
+		this.cardCount = new SimpleIntegerProperty(cards.size());
 	}
 	
 
@@ -60,6 +62,10 @@ public class Set {
 	public String getSetName() {
 		return name.get();
 	}
+	
+	public void setSetName(String name) {
+		this.name = new SimpleStringProperty(name);
+	}
 
 	/**
 	 * Getter for tableview
@@ -68,6 +74,10 @@ public class Set {
 	 */
 	public Integer getCardCount() {
 		return cardCount.get();
+	}
+	
+	public void setCardCount(int num) {
+		this.cardCount = new SimpleIntegerProperty(num);
 	}
 
 	/**
@@ -99,12 +109,21 @@ public class Set {
 		return full;
 	}
 	
+	public void setRelatedQuizzes(ArrayList<String> related) {
+		relatedQuizzes = related;
+	}
+	
 	/**
 	 * Getter for Flashcards in a set
 	 * @return observable list of flashcards used for tableview in editSet menu
 	 */
-	public ObservableList<Flashcard> getFlashcards() {
-		return FXCollections.observableArrayList(cards);
+	public ArrayList<Flashcard> getFlashcards() {
+		return cards;
+		//return FXCollections.observableArrayList(cards);
+	}
+	
+	public void setFlashcards(ArrayList<Flashcard> cards) {
+		this.cards = cards;
 	}
 
 	@Override

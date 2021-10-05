@@ -33,6 +33,7 @@
                </font>
             </Label>
             <Button fx:id="menuBtn" layoutX="909.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#menuBtnClick" prefHeight="26.0" prefWidth="89.0" text="Main Menu" />
+            <Button fx:id="createSetBtn" layoutX="797.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#createSetBtnClick" prefHeight="26.0" prefWidth="105.0" text="Create New Set" />
          </children>
       </AnchorPane>
       <AnchorPane layoutY="30.0" prefHeight="570.0" prefWidth="1000.0">
